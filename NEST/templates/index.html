@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Kids Page</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        h1 {
+            color: #ff4500;
+            font-size: 50px;
+            text-shadow: 3px 3px #fff;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        button {
+            background: #ffcc00;
+            border: none;
+            padding: 15px 30px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 3px 3px 5px #888;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff5733;
+            color: white;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Fun Zone!</h1>
+    <p>Click the button to execute the Python program!</p>
+    <div class="container">
+        <button onclick="runPython()">Run Bubba Chatbot</button>
+    </div>
+
+    <script>
+        function runPython() {
+            fetch('/run_python', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.output) {
+                    alert("Chatbot Output:\n" + data.output);
+                } else if (data.error) {
+                    alert("Error:\n" + data.error);
+                }
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Request failed:', error);
+                alert("Request failed. Check console.");
+            });
+        }
+    </script>
+</body>
+</html>
